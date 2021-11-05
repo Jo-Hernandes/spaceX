@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="launch"
+            type="com.jhernandes.spacex.model.MissionLaunchModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/iv_patch_image"
+            error="@{ @drawable/ic_launch_placeholder }"
+            imageUrl="@{ launch.missionPatchUrl }"
+            placeholder="@{ @drawable/ic_launch_placeholder }"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_launch_placeholder" />
+
+        <ImageView
+            android:id="@+id/iv_checkmark"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@{launch.launchSuccess? @drawable/v_mark : @drawable/x_mark}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/x_mark" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_checkmark"
+            app:layout_constraintStart_toEndOf="@id/iv_patch_image"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@{@string/mission_item_name(launch.missionName)}"
+                tools:text="Mission: ABC" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@{@string/mission_item_date(launch.launchDateFormatted, launch.launchTimeFormatted)}"
+                tools:text="Date/Time: ABC" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@{@string/mission_item_rocket(launch.rocketName,launch.rocketType )}"
+                tools:text="Rocket: ABC" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@{launch.isPastLaunch? @string/mission_item_days_since(launch.daysDifference) : @string/mission_item_days_from(launch.daysDifference)}"
+                tools:text="Days from: ABC" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
